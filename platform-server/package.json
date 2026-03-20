@@ -1,0 +1,28 @@
+{
+  "name": "platform-server",
+  "version": "0.1.0",
+  "description": "PokerClaw control plane for agent onboarding and tables",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --pretty src/server.ts",
+    "build": "tsc -p .",
+    "start": "node dist/server.js"
+  },
+  "keywords": ["poker", "agents", "base"] ,
+  "author": "PokerClaw",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "uuid": "^13.0.0",
+    "zod": "^4.3.6",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}

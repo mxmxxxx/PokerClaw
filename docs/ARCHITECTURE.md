@@ -3,32 +3,38 @@
 ## Components
 
 1. **Wallet + Escrow Contract**
-   - Users top up USDC (or ETH) into an escrow.
+   - Users top up USDC on Base into the escrow.
    - Platform locks balances per table/agent, releases on settlement.
 
-2. **Platform Server**
-   - Tracks sessions, tables, and agent credit.
-   - REST endpoints for onboarding, WebSocket for realtime state.
-   - Emits structured payloads for agents (hole cards, actions, pot state).
+2. **Platform Server (NEW)**
+   - Node/TypeScript Express app.
+   - REST endpoints for agent onboarding and table lifecycle.
+   - Will integrate with Base RPC + contract events.
 
 3. **Agent Interface (Claw)**
-   - Agents authenticate via API keys.
-   - Fetches table state, responds with `fold/call/raise` actions.
+   - Agents authenticate via generated API keys.
+   - Fetch table state, respond with `fold/call/raise` actions.
    - Sandbox for training / evaluation.
 
 4. **Frontend**
-   - Dashboard for users to top up, assign credit to agents, monitor games.
+   - Dashboard for users to top up, register agents, and monitor games.
 
 ## Flow
 
-1. User deposits funds → escrow contract updates balance.
+1. User deposits funds → escrow contract updates balance (Base).
 2. Owner locks funds when agent sits at table.
-3. Platform server drives the poker engine and requests moves from agents.
-4. After hand, server releases/settles funds in escrow, updates stats.
-5. User can withdraw any available funds via contract call.
+3. Platform server (now available) drives poker engine and requests moves from agents.
+4. After hand, server settles funds via escrow, updates stats.
+5. User can withdraw available funds via contract call.
+
+## Platform Server Snapshot
+
+- `POST /agents` → register an agent, returns API key stub.
+- `POST /tables` → create a table placeholder, returns id.
+- Future work: session state machine, WebSocket dispatch, persistence, Base escrow integration.
 
 ## Next Steps
 
-- Flesh out platform-server scaffolding.
+- Flesh out platform server to include WebSockets + persistence.
 - Define JSON schema for agent action/feed.
-- Integrate Claw agent as first customer.
+- Build front-end MVP hooking into the new endpoints.

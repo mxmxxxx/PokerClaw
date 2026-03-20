@@ -1,0 +1,7 @@
+/node_modules
+/contracts/node_modules
+/platform-server/node_modules
+/dist
+/platform-server/dist
+.env
+/platform-server/.env
